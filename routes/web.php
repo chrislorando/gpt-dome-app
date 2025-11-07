@@ -12,7 +12,7 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-Route::get('chat-bot-ai', \App\Livewire\Chat\ChatBotAi::class)
+Route::get('chat/bot-ai', \App\Livewire\Chat\BotAi::class)
     ->middleware(['auth', 'verified'])
     ->name('chat.bot-ai');
 
@@ -20,14 +20,13 @@ Route::get('chat', function () {
     return redirect()->route('chat.bot-ai');
 })->middleware(['auth', 'verified']);
 
-Route::get('chat-bot-ai/new', \App\Livewire\Chat\ChatBotAi::class)
+Route::get('chat/bot-ai/new', \App\Livewire\Chat\BotAi::class)
     ->middleware(['auth', 'verified'])
     ->name('chat.bot-ai.new');
 
-Route::get('chat-bot-ai/{id}', \App\Livewire\Chat\ChatBotAi::class)
+Route::get('chat/bot-ai/{id}', \App\Livewire\Chat\BotAi::class)
     ->middleware(['auth', 'verified'])
     ->name('chat.bot-ai.show');
-
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
