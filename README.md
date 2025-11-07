@@ -1,12 +1,16 @@
 # Demolite AI Playground
 
-A TALL Stack application that functions as a ChatGPT-like chat app, integrating with OpenAI API for AI conversations. 
+A free, open-source TALL Stack application showcasing AI-powered mini apps. Rather than just testing models, Demolite is a collection of practical AI applications including a chatbot, file validation, CV/resume analysis, and more. Powered by OpenAI.
 
-This project serves both as a learning medium to deepen my understanding of modern web development technologies and as a showcase piece for my professional portfolio.
+<img alt="Demolite AI Playground" src="https://github.com/user-attachments/assets/bae7e20c-c917-4632-97de-abd9954a762c" />
+
+This project serves both as a learning medium to deepen my understanding of modern web development technologies and as a showcase piece for my professional portfolio. The demo is freely accessible online, and the complete source code is available on GitHub for anyone to use, modify, or contribute to.
 
 ## Features
 
 - Chat with AI using OpenAI API
+- File validation powered by AI
+- CV/Resume analysis and feedback
 - Conversation history management
 - Search conversations
 - Real-time chat updates with Livewire stream
