@@ -18,7 +18,7 @@ Route::get('chat/bot-ai', \App\Livewire\Chat\BotAi::class)
 
 Route::get('chat', function () {
     return redirect()->route('chat.bot-ai');
-})->middleware(['auth', 'verified']);
+})->middleware(['auth', 'verified'])->name('chat');
 
 Route::get('chat/bot-ai/new', \App\Livewire\Chat\BotAi::class)
     ->middleware(['auth', 'verified'])

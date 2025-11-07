@@ -18,7 +18,7 @@ test('authenticated user can access chat page', function () {
     $this->actingAs($user);
     $response = $this->get('/chat');
 
-    $response->assertSuccessful();
+    $response->assertRedirect(route('chat.bot-ai'));
 });
 
 test('chat page loads without creating conversation initially', function () {
@@ -28,7 +28,7 @@ test('chat page loads without creating conversation initially', function () {
 
     expect($user->conversations()->count())->toBe(0);
 
-    $response = $this->get('/chat');
+    $response = $this->get(route('chat.bot-ai'));
     
     $response->assertSuccessful();
     
@@ -42,7 +42,7 @@ test('user can send message and receive response', function () {
 
     // Just test that we can set properties and call submitPrompt
     Livewire::actingAs($user)
-        ->test(\App\Livewire\Chat\MessageInput::class, ['conversationId' => $conversation->id])
+        ->test(\App\Livewire\Chat\BotAi::class, ['id' => $conversation->id])
         ->set('prompt', 'Hello world')
         ->call('submitPrompt')
         ->assertSet('prompt', '');
@@ -54,27 +54,13 @@ test('user can send message and receive response', function () {
 test('user creates conversation when sending first message', function () {
     $user = User::factory()->create();
 
-    OpenAI::fake([
-        CreateResponse::fake([
-            'choices' => [
-                [
-                    'message' => [
-                        'role' => 'assistant',
-                        'content' => 'Response',
-                    ],
-                ],
-            ],
-        ]),
-    ]);
-
     $this->actingAs($user);
 
     expect($user->conversations()->count())->toBe(0);
 
-    Livewire::test(\App\Livewire\Chat\MessageInput::class)
+    Livewire::test(\App\Livewire\Chat\BotAi::class)
         ->set('prompt', 'Hello')
-        ->call('submitPrompt')
-        ->assertDispatched('conversation-created');
+        ->call('submitPrompt');
 
     expect($user->fresh()->conversations()->count())->toBe(1);
 });
