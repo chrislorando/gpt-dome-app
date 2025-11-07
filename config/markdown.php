@@ -1,5 +1,9 @@
 <?php
 
+use League\CommonMark\Extension\Table\TableExtension;
+use League\CommonMark\Extension\TaskList\TaskListExtension;
+use League\CommonMark\Extension\DescriptionList\DescriptionListExtension;
+
 return [
     'code_highlighting' => [
         /*
@@ -71,7 +75,10 @@ return [
      * More info: https://commonmark.thephpleague.com/2.4/extensions/overview/
      */
     'extensions' => [
-        //
+        TableExtension::class,
+        TaskListExtension::class,
+        DescriptionListExtension::class
+
     ],
 
     /*

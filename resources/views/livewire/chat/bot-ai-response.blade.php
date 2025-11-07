@@ -16,7 +16,7 @@
                         {{-- {!! \App\Services\MarkdownParser::parse($message->content) !!} --}}
                         {{-- {!! \GrahamCampbell\Markdown\Facades\Markdown::convert($message->content)->getContent() !!} --}}
                         {{-- {!! Illuminate\Support\Str::markdown($message->content) !!} --}}
-                        <div class="break-words leading-8 overflow-wrap-anywhere [&_*]:max-w-full [&_pre]:overflow-x-auto [&_pre]:whitespace-pre-wrap [&_code]:break-all [&_table]:block [&_table]:overflow-x-auto">
+                        <div class="shiki">
                             <x-markdown 
                                 :anchors="false"
                                 :options="[
