@@ -58,19 +58,19 @@
         <section id="features" class="container mx-auto px-8 mt-4">
             <div class="grid md:grid-cols-3 gap-6">
                 <div class="rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900/40 p-8">
-                    <flux:icon name="chat-bubble-left" class="size-8 mb-4 text-zinc-700 dark:text-zinc-300" />
-                    <h3 class="font-semibold mb-2 text-lg">AI Chatbot</h3>
-                    <p class="text-sm text-zinc-600 dark:text-zinc-400">Intelligent conversations powered by OpenAI. Build conversational experiences for your users.</p>
+                    <flux:icon name="currency-dollar" class="size-8 mb-4 text-zinc-700 dark:text-zinc-300" />
+                    <h3 class="font-semibold mb-2 text-lg">100% Free</h3>
+                    <p class="text-sm text-zinc-600 dark:text-zinc-400">Enjoy all AI features completely free. No hidden fees or usage limitations.</p>
                 </div>
                 <div class="rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900/40 p-8">
-                    <flux:icon name="document-check" class="size-8 mb-4 text-zinc-700 dark:text-zinc-300" />
-                    <h3 class="font-semibold mb-2 text-lg">File Validation</h3>
-                    <p class="text-sm text-zinc-600 dark:text-zinc-400">AI-powered file analysis and validation. Detect issues and validate content intelligently.</p>
+                    <flux:icon name="squares-2x2" class="size-8 mb-4 text-zinc-700 dark:text-zinc-300" />
+                    <h3 class="font-semibold mb-2 text-lg">Multi Features</h3>
+                    <p class="text-sm text-zinc-600 dark:text-zinc-400">Complete collection of AI-powered mini apps for various needs: chatbots, file analysis, resume review, and more.</p>
                 </div>
                 <div class="rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900/40 p-8">
-                    <flux:icon name="document-text" class="size-8 mb-4 text-zinc-700 dark:text-zinc-300" />
-                    <h3 class="font-semibold mb-2 text-lg">Resume Analysis</h3>
-                    <p class="text-sm text-zinc-600 dark:text-zinc-400">Get AI-powered feedback on your CV and resume. Improve and optimize your professional documents.</p>
+                    <flux:icon name="code-bracket" class="size-8 mb-4 text-zinc-700 dark:text-zinc-300" />
+                    <h3 class="font-semibold mb-2 text-lg">Open Source</h3>
+                    <p class="text-sm text-zinc-600 dark:text-zinc-400">Open source code on GitHub. Contribute, modify, and deploy according to your needs.</p>
                 </div>
             </div>
         </section>
