@@ -3,8 +3,10 @@
 namespace App\Livewire\Chat;
 
 use App\Models\Conversation;
+use App\Models\SharedConversation;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Illuminate\Support\Str;
 
 class ConversationList extends Component
 {
@@ -31,8 +33,39 @@ class ConversationList extends Component
 
     public function shareConversation(string $conversationId): void
     {
-        $conversation = Conversation::find($conversationId);
-        $this->shareUrl = route('chat.bot-ai.show', $conversation);
+        $conversation = Conversation::with('items')->find($conversationId);
+
+        if (! $conversation) {
+            return;
+        }
+
+        // Prepare messages from conversation items (preserve order)
+        $messages = $conversation->items->sortBy('created_at')->map(function ($item) {
+            return [
+                'role' => $item->role,
+                'content' => $item->content,
+            ];
+        })->values()->toArray();
+
+        $hash = hash('sha256', json_encode($messages));
+
+        $sharedConversation = SharedConversation::where('content_hash', $hash)
+            ->where('user_id', $conversation->user_id)
+            ->first();
+
+        if(!$sharedConversation){
+            $sharedConversation = new SharedConversation();
+            $sharedConversation->user_id = $conversation->user_id;
+            $sharedConversation->content_hash = $hash;
+            $sharedConversation->share_token = (string) Str::uuid();
+            $sharedConversation->content = $messages;
+            $sharedConversation->title = $conversation->title;
+            $sharedConversation->expires_at = null;
+            $sharedConversation->save();
+        }
+
+        // Public link (route may be added later). Use a simple path for now.
+        $this->shareUrl = url('/shared/'.$sharedConversation->share_token);
         $this->copied = false;
         $this->modal('share-modal')->show();
     }

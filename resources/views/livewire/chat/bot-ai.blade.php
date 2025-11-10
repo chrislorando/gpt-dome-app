@@ -2,7 +2,7 @@
     <livewire:chat.bot-ai-response :conversationId="$conversationId" wire:key="chat-bot-ai-content-{{ $conversationId }}" />
     
     <form wire:submit.prevent="submitPrompt" class="mt-14 sticky bottom-0  p-4 border-t border-gray-200 dark:border-zinc-700">
-        <div class="w-full mx-auto px-0 md:px-16">
+        <div class="w-full mx-auto px-0 md:px-32">
             <div class="flex flex-col md:flex-row items-stretch md:items-end gap-2">
                 
                 <!-- Desktop left select (hidden on mobile) -->
