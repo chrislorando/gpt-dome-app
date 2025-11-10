@@ -364,7 +364,7 @@ select:focus[data-flux-control] {
 
 /* Paragraphs and text */
 .shiki p {
-    margin: 0.75rem 0;
+    /* margin: 0.75rem 0; */
     text-align: justify;
     
 }
