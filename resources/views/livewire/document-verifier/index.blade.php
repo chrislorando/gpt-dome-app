@@ -1,13 +1,6 @@
 <div>
-    <div class="flex items-center justify-between mb-4">
-        <div>
-            <flux:heading>Documents</flux:heading>
-            <flux:text class="mt-2">Uploaded PDF documents and verification results.</flux:text>
-        </div>
-
-        <div class="flex items-center gap-2">
-            <flux:button wire:click="openForm">Upload PDF</flux:button>
-        </div>
+    <div class="flex items-center justify-between">
+        @include('partials.general-heading', ['heading' => 'Documents', 'subheading' => 'Uploaded PDF documents and verification results.'])
     </div>
 
     <livewire:document-verifier.table />
@@ -37,3 +30,6 @@
         </div>
     </flux:modal>
 </div>
+
+
+
