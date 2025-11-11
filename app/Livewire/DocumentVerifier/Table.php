@@ -29,6 +29,12 @@ class Table extends Component
         $this->dispatch('view-document', documentId: $id);
     }
 
+    public function openUpload(): void
+    {
+        // Dispatch an event up to the parent Livewire component to open the upload modal.
+        $this->dispatch('documentUpload:open');
+    }
+
     public function confirmDelete(string $id): void
     {
         $this->dispatch('delete-document', documentId: $id);

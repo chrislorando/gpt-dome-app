@@ -25,6 +25,7 @@ class Index extends Component
         $this->modal('document-form-modal')->close();
     }
 
+    #[On('documentUpload:open')]
     public function openForm(): void
     {
         $this->modal('document-form-modal')->show();
@@ -35,6 +36,8 @@ class Index extends Component
     {
         $this->selectedDocumentId = $documentId;
         $this->modal('document-view-modal')->show();
+        // Notify the browser that the view modal was opened so front-end scripts can act
+        $this->dispatch('document-view-opened');
     }
 
     #[On('delete-document')]
