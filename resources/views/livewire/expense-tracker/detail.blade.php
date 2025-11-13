@@ -7,7 +7,9 @@
                         Receipt number
                     </p>
                     <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-50">
-                        {{ $receipt->receipt_no ?: '—' }}
+                        <flux:link :href="$receipt->file_url" target="_blank" rel="noopener noreferrer">
+                            {{ $receipt->receipt_no ?: 'No transaction number' }}
+                        </flux:link>
                     </h3>
                     <p class="text-sm text-zinc-600 dark:text-zinc-300">
                         {{ $receipt->store_name ?: 'Unknown store' }}
@@ -157,10 +159,25 @@
                     </div>
 
                     <div class="mt-4 grid gap-3 md:grid-cols-2 lg:grid-cols-4">
-                        <flux:input wire:model.defer="item_name" placeholder="Item name" />
-                        <flux:input wire:model.defer="item_quantity" type="number" min="1" placeholder="Quantity" />
-                        <flux:input wire:model.defer="item_unit_price" type="number" step="0.01" placeholder="Unit price" />
-                        <flux:input wire:model.defer="item_discount" type="number" step="0.01" placeholder="Discount" />
+                        <flux:field>
+                            <flux:label>Item name</flux:label>
+                            <flux:input wire:model.defer="item_name" placeholder="Enter item name" />
+                        </flux:field>
+                        
+                        <flux:field>
+                            <flux:label>Quantity</flux:label>
+                            <flux:input wire:model.defer="item_quantity" type="number" min="1" placeholder="0" />
+                        </flux:field>
+                        
+                        <flux:field>
+                            <flux:label>Unit price</flux:label>
+                            <flux:input wire:model.defer="item_unit_price" type="number" step="0.01" placeholder="0.00" />
+                        </flux:field>
+                        
+                        <flux:field>
+                            <flux:label>Discount</flux:label>
+                            <flux:input wire:model.defer="item_discount" type="number" step="0.01" placeholder="0.00" />
+                        </flux:field>
                     </div>
 
                     <div class="mt-4 flex items-center gap-3">

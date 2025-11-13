@@ -1,5 +1,5 @@
 <div class="rounded-md">
-    <h4 class="mb-3 font-semibold text-zinc-800 dark:text-zinc-100">Upload Expense</h4>
+    <h4 class="mb-3 font-semibold text-zinc-800 dark:text-zinc-100">Upload Shopping Receipt</h4>
 
     <form wire:submit.prevent="submit" class="space-y-4">
         <flux:field>
