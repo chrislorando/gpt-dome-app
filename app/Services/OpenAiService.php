@@ -60,9 +60,9 @@ class OpenAiService implements AiServiceInterface
             $stream = OpenAI::chat()->createStreamed([
                 'model' => $model,
                 'messages' => array_merge([$systemPrompt], $messages ?? $content),
-                'stream_options'=>[
+                'stream_options' => [
                     'include_usage' => true,
-                ]
+                ],
             ]);
 
             $assistantContent = '';
@@ -70,9 +70,9 @@ class OpenAiService implements AiServiceInterface
             $finalUsage = null;
 
             foreach ($stream as $response) {
-                    if ($response->usage !== null) {
-                        $finalUsage = $response->usage;
-                    }
+                if ($response->usage !== null) {
+                    $finalUsage = $response->usage;
+                }
 
                 if ($responseId === null && isset($response->id)) {
                     $responseId = $response->id;
@@ -197,7 +197,7 @@ class OpenAiService implements AiServiceInterface
                                             \"issue\": \"<short description>\",
                                             \"suggestion\": \"<what needs to be improved>\"
                                         }
-                                    ]"
+                                    ]",
 
                         ],
                         [
@@ -226,7 +226,7 @@ class OpenAiService implements AiServiceInterface
                                         You are a professional HR analyst or recruiter.
                                         Compare this CV with the following job description:
 
-                                        Job Description (link or text):
+                                        Job Description:
                                         {$jobOffer}
 
                                         Instructions:
@@ -279,7 +279,6 @@ class OpenAiService implements AiServiceInterface
 
                                         PROMPT
 
-
                         ],
                         [
                             'type' => 'input_file',
@@ -293,9 +292,9 @@ class OpenAiService implements AiServiceInterface
         return $response;
     }
 
-    public function createReceiptResponse(string $document, string|null $extension = null, ?string $model = null)
+    public function createReceiptResponse(string $document, ?string $extension = null, ?string $model = null)
     {
-        $prompt = <<<PROMPT
+        $prompt = <<<'PROMPT'
         You are a professional OCR and document parser specialized in receipts.
 
         Task:
@@ -308,6 +307,7 @@ class OpenAiService implements AiServiceInterface
         - Detect transaction info (cashier name, date, time, receipt number) if printed.
         - Detect purchased items even if labels differ (e.g. "QTY", "JUMLAH", "PCS", etc.).
         - Each item must include: name, quantity, unit_price, total_price, and discount if available.
+        - If no item details are present, still generate one pseudo-item using store name as description, quantity = 1, total_price = total_payment.
         - Detect total summary fields (subtotal, total_payment, payment_method, change, dpp, ppn, total_discount).
         - If a field is missing, still include it with null or 0.
         - Use only plain integers for numeric values.
