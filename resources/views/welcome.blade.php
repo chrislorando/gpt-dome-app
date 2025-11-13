@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Demolite - AI Playground — Free AI model sandbox</title>
+    <title>GPT Dome - AI Playground — Free AI model sandbox</title>
 
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -40,15 +40,15 @@
                 <div class="space-y-4">
                     <p class="text-zinc-600 dark:text-zinc-400 text-sm">Free, open source, and powerful</p>
                     <h1 class="text-4xl lg:text-5xl font-semibold leading-tight">Explore AI models in one clean place</h1>
-                    <p class="text-zinc-600 dark:text-zinc-400 max-w-xl">Demolite is a free, open-source collection of AI-powered mini apps for real-world tasks. From chatbots to document verification, resume analysis—all and expense tracker powered by OpenAI. Try the live demo or explore the source code on GitHub.</p>
+                    <p class="text-zinc-600 dark:text-zinc-400 max-w-xl">GPT Dome is a free, open-source collection of AI-powered mini apps for real-world tasks. From chatbots to document verification, resume analysis—all and expense tracker powered by OpenAI. Try the live demo or explore the source code on GitHub.</p>
                     <div class="flex items-center gap-3 pt-2">
                         <a href="{{ route('chat.bot-ai') }}" class="px-6 py-3 rounded-md text-white bg-black hover:bg-zinc-900 transition-colors">Start Exploring</a>
-                        <a href="https://github.com/chrislorando/demolite" target="_blank" class="px-6 py-3 rounded-md border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-800/5 transition-colors">Learn More</a>
+                        <a href="https://github.com/chrislorando/gpt-dome-app target="_blank" class="px-6 py-3 rounded-md border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-800/5 transition-colors">Learn More</a>
                     </div>
                 </div>
                 <div class="relative">
                     <div class="rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900/40 shadow-xs overflow-hidden">
-                        <img src="{{ asset('screenshot.png') }}" alt="Demolite AI Playground demo" class="w-full object-cover" />
+                        <img src="{{ asset('screenshot.png') }}" alt="GPT Dome AI Playground demo" class="w-full object-cover" />
                     </div>
                 </div>
             </div>
@@ -105,7 +105,7 @@
                 </div>
                 <div class="flex items-center gap-3">
                     <a href="{{ route('chat.bot-ai') }}" class="px-6 py-3 rounded-md text-white bg-black hover:bg-zinc-900 transition-colors">Start Exploring</a>
-                    <a href="https://github.com/chrislorando/demolite" target="_blank" class="px-6 py-3 rounded-md border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-800/5 transition-colors">Learn More</a>
+                    <a href="https://github.com/chrislorando/GPT Dome" target="_blank" class="px-6 py-3 rounded-md border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-800/5 transition-colors">Learn More</a>
                 </div>
             </div>
         </section>
@@ -113,7 +113,7 @@
 
     <footer class="container mx-auto px-8 my-8 border-t border-zinc-200 dark:border-zinc-800 pt-6">
         <div class="flex items-center justify-between text-sm text-zinc-600 dark:text-zinc-400 max-md:flex-col gap-3">
-            <p>© {{ date('Y') }} Demolite. All rights reserved.</p>
+            <p>© {{ date('Y') }} GPT Dome. All rights reserved.</p>
             <div class="flex items-center gap-4">
                 <a href="https://medium.com/@twinklescode" target="_blank" class="hover:text-zinc-800 dark:hover:text-white">Medium</a>
                 <a href="https://github.com/chrislorando" target="_blank" class="hover:text-zinc-800 dark:hover:text-white">GitHub</a>

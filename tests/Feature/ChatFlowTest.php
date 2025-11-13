@@ -72,6 +72,7 @@ test('user can delete conversation', function () {
     Livewire::actingAs($user)
         ->test(\App\Livewire\Chat\ConversationList::class)
         ->call('deleteConversation', $conversation->id)
+        ->call('confirmDelete')
         ->assertDispatched('conversation-deleted');
 
     expect(Conversation::find($conversation->id))->toBeNull();
