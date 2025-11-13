@@ -58,6 +58,10 @@ Route::get('documents', \App\Livewire\DocumentVerifier\Index::class)
     ->middleware(['auth', 'verified'])
     ->name('documents.index');
 
+Route::get('expenses-tracker', \App\Livewire\ExpenseTracker\Index::class)
+    ->middleware(['auth', 'verified'])
+    ->name('expenses.index');
+
 Route::get('cv-screening', \App\Livewire\CvScreening\Index::class)
     ->middleware(['auth', 'verified'])
     ->name('cv-screening.index');

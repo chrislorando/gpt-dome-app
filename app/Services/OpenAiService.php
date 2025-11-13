@@ -252,9 +252,16 @@ class OpenAiService implements AiServiceInterface
 
                                         - Set "is_recommended" to 1 if overall_score >= 75, otherwise 0.
 
-                                        - Generate a short personalized cover letter (max 200 words) in HTML format (use <p>, <br>, <strong> where appropriate). The tone should be confident, professional, and aligned with the job description.
+                                        - Generate a short personalized cover letter (max 400 words) in HTML format (use <p>, <br>, <strong> where appropriate). 
+                                        The tone should be confident and professional.
+                                        The cover letter must include:
+                                            • A polite greeting line.
+                                            • A strong hook: either a quantifiable achievement, rare skill, or direct connection to the company’s goal.
+                                            • 1–3 sentences summarizing relevant experience and skills concisely.
+                                            • A confident closing aligned with the job description.
+                                            • A polite sign-off at the end.
 
-                                        - Add a “suggestion” field containing a brief, actionable recommendation (1–2 sentences) for improving the CV to better match this job.
+                                        - Add a “suggestion” field containing a brief, actionable recommendation (1–5 sentences) for improving the CV to better match this job.
                                         
 
                                         Return JSON only with this structure:
@@ -266,7 +273,7 @@ class OpenAiService implements AiServiceInterface
                                             "overall_score": 0-100,
                                             "summary": "short text summary of the analysis",
                                             "suggestion": "1-5 sentence actionable advice for improvement",
-                                            "cover_letter": "<p>HTML formatted cover letter</p>",
+                                            "cover_letter": "<p>HTML formatted cover letter starting with hook</p>",
                                             "is_recommended": 0 or 1
                                         }
 
@@ -282,6 +289,89 @@ class OpenAiService implements AiServiceInterface
                 ],
             ],
         ]);
+
+        return $response;
+    }
+
+    public function createReceiptResponse(string $document, string|null $model = null)
+    {
+        $response = OpenAI::responses()->create([
+                'model' => $model ?: 'gpt-4.1', // atau 'gpt-4o-mini' jika vision aktif
+                'input' => [
+                    [
+                        'role' => 'user',
+                        'content' => [
+                            [
+                                'type' => 'input_text',
+                                'text' => <<<PROMPT
+                                    You are a professional OCR and document parser specialized in receipts.
+
+                                    Task:
+                                    Extract structured data from a receipt image, regardless of store format or layout.
+                                    Receipts may come from supermarkets, minimarkets, restaurants, or e-commerce.
+                                    Normalize all extracted information into the standardized JSON structure below.
+
+                                    Requirements:
+                                    - Detect and normalize store information (name, phone, company, address, npwp, branch address) when present.
+                                    - Detect transaction info (cashier name, date, time, receipt number) if printed.
+                                    - Detect purchased items even if labels differ (e.g. "QTY", "JUMLAH", "PCS", etc.).
+                                    - Each item must include: name, quantity, unit_price, total_price, and discount if available.
+                                    - Detect total summary fields (subtotal, total_payment, payment_method, change, dpp, ppn, total_discount).
+                                    - If a field is missing, still include it with null or 0.
+                                    - Use only plain integers for numeric values.
+                                    - If currency symbols or contextual cues indicate local currency, include "currency": "<CODE>" (e.g. "IDR", "USD", "MYR"). 
+                                    If uncertain, default to "IDR".
+                                    - Date format: YYYY-MM-DD, time: HH:MM:SS.
+                                    - Output JSON only, no explanations or comments.
+
+                                    Expected structure:
+                                    {
+                                        "store": {
+                                            "name": null,
+                                            "phone": null,
+                                            "company": null,
+                                            "address": null,
+                                            "npwp": null,
+                                            "branch_address": null
+                                        },
+                                        "transaction": {
+                                            "cashier": null,
+                                            "date": null,
+                                            "time": null,
+                                            "receipt_no": null,
+                                            "currency": null,
+                                            "items": [
+                                                {
+                                                    "name": "",
+                                                    "quantity": 0,
+                                                    "unit_price": 0,
+                                                    "total_price": 0,
+                                                    "discount": 0
+                                                }
+                                            ],
+                                            "summary": {
+                                                "total_items": 0,
+                                                "total_discount": 0,
+                                                "subtotal": 0,
+                                                "total_payment": 0,
+                                                "payment_method": null,
+                                                "change": 0,
+                                                "dpp": 0,
+                                                "ppn": 0
+                                            }
+                                        }
+                                    }
+                                    PROMPT
+                            ],
+                            [
+                                'type' => 'input_image',
+                                'image_url' => $document,
+                            ],
+                        ],
+                    ],
+                ],
+            ]);
+
 
         return $response;
     }

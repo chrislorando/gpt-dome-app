@@ -27,4 +27,11 @@ interface AiServiceInterface
      * @return mixed
      */
     public function createCvScreeningResponse(string $document, ?string $jobOffer = null, ?string $model = null);
+
+    /**
+     * Send a file to be checked
+     *
+     * @return mixed
+     */
+    public function createReceiptResponse(string $document, ?string $model = null);
 }
