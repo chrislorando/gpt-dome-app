@@ -6,7 +6,7 @@
                 <div class="mb-6">
                     <p class="text-sm text-center font-semibold text-zinc-800 dark:text-white">
                         {{-- {{ $title }} --}}
-                        Content created using Demolite.
+                        Content created using {{ config('app.name', 'Laravel') }}.
                     </p>
                 </div>
             @endif

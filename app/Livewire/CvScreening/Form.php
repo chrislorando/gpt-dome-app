@@ -14,7 +14,7 @@ class Form extends Component
 {
     use WithFileUploads;
 
-    public $model_id;
+    public $model_id = 'gpt-4o-mini';
     public $job_offer;
     public $file;
 

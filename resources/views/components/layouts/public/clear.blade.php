@@ -16,7 +16,7 @@
     <header class="container mx-auto px-8 py-6">
         <nav class="flex items-center justify-between">
             <a href="{{ route('home') }}" class="flex items-center gap-3">
-                <img src="/logo.jpeg" alt="{{ config('app.name') }} logo" class="size-9 rounded-md object-cover" />
+                <img src="/logo.png" alt="{{ config('app.name') }} logo" class="size-9 rounded-md object-cover" />
                 <span class="font-semibold text-lg">{{ config('app.name') }}</span>
             </a>
             @if (Route::has('login'))
