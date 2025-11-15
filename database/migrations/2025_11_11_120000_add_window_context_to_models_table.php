@@ -9,7 +9,7 @@ return new class extends Migration {
     {
         Schema::table('models', function (Blueprint $table) {
             // Use decimal for deterministic precision; nullable so existing rows aren't affected.
-            $table->decimal('window_context', 8, 2)->nullable();
+            $table->decimal('window_context', 10, 2)->nullable();
         });
     }
 
