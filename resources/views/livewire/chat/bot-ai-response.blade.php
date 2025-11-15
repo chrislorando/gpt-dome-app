@@ -5,7 +5,7 @@
                 {{-- User - kanan --}}
                 <div class="flex justify-end">
                     <div class="max-w-lg bg-zinc-700 text-white px-4 py-2 rounded-lg shadow break-words">
-                        <pre class="whitespace-pre-wrap break-words">{{ $message->content }}</pre>
+                        <p class="whitespace-pre-wrap break-words">{{ $message->content }}</p>
                     </div>
                 </div>
                 
@@ -99,16 +99,19 @@
             <div class="flex justify-end my-4">
 
                 <div class="max-w-lg bg-zinc-700 text-white px-4 py-2 rounded-lg shadow break-words relative group">
-                    <pre class="whitespace-pre-wrap break-words">{{ $question }}</pre>
+                    <p class="whitespace-pre-wrap break-words">{{ $question }}</p>
                 </div>
 
             </div>
 
             <div class="my-4 relative group">
 
-                <div class=" px-4 py-2 leading-8 break-words text-justify text-zinc-600 dark:text-white">
+                <div x-data="{ loading: true }" x-init="setTimeout(() => { loading = false }, 3000)" class="px-4 py-2 leading-8 break-words text-justify text-zinc-600 dark:text-white">
+                    <div x-show="loading" class="animate-pulse text-zinc-400">
+                        <p><flux:icon name="ellipsis-horizontal" class="inline-block w-6 h-6 animate-pulse" /></p>
+                    </div>
                     <div wire:stream="answer">
-                        {!! \App\Services\MarkdownParser::parse($answer) !!}
+                        {{ $answer }}
                     </div>
                 </div>
 

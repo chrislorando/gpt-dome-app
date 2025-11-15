@@ -7,15 +7,21 @@
                     <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-50">
                         {{ $voiceNote->title }}
                     </h3>
-                    <flux:link :href="$voiceNote->file_url" target="_blank" rel="noopener noreferrer">
+                     <flux:link :href="$voiceNote->file_url" target="_blank" rel="noopener noreferrer">
                         {{ $voiceNote->file_name }}
                     </flux:link>
+                   
                 </div>
 
                 <div class="text-sm text-right text-zinc-600 dark:text-zinc-300">
                     <p>{{ $voiceNote->created_at }}</p>
                     <p>Duration: {{ $voiceNote->duration ?? 0 }}s</p>
                 </div>
+            </div>
+
+            <div class="mt-4 rounded-lg border border-zinc-100 bg-zinc-50/70 p-4 dark:border-zinc-800 dark:bg-zinc-800/40">
+                <dt class="text-xs uppercase tracking-wide text-zinc-500 dark:text-zinc-400 mb-2">Preview</dt>
+                <audio controls preload="metadata" class="w-full" src="{{ $voiceNote->file_url }}"></audio>
             </div>
 
             @if($voiceNote->transcript)
@@ -51,7 +57,7 @@
                     </p>
                 </div>
 
-                <div class="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-700">
+                <div class="overflow-x-auto rounded-lg border border-zinc-200 dark:border-zinc-700">
                     <table class="min-w-full divide-y divide-zinc-200 text-sm dark:divide-zinc-700">
                         <thead class="bg-zinc-50 text-xs uppercase tracking-wide text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400">
                             <tr>
@@ -77,8 +83,8 @@
                                     </td>
                                     <td class="px-4 py-3">
                                         <div class="flex items-center justify-center gap-2">
-                                            <flux:button size="xs" icon="pencil" variant="subtle" wire:click="editItem('{{ $item->id }}')">Edit</flux:button>
-                                            <flux:button size="xs" icon="trash" variant="danger" wire:click="deleteItem('{{ $item->id }}')">Delete</flux:button>
+                                            <flux:button size="xs" icon="pencil" variant="primary" wire:click="editItem('{{ $item->id }}')"></flux:button>
+                                            <flux:button size="xs" icon="trash" variant="danger" wire:click="deleteItem('{{ $item->id }}')"></flux:button>
                                         </div>
                                     </td>
                                 </tr>
@@ -92,6 +98,7 @@
                         </tbody>
                     </table>
                 </div>
+                
 
                 <div class="rounded-lg border border-dashed border-zinc-300 p-4 dark:border-zinc-700">
                     <div class="flex flex-wrap items-center justify-between gap-3">

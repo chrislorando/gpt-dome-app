@@ -60,7 +60,7 @@
 
             <div class="mt-4 rounded-lg border border-zinc-100 bg-zinc-50/70 p-4 dark:border-zinc-800 dark:bg-zinc-800/40">
                 <dt class="text-xs uppercase tracking-wide text-zinc-500 dark:text-zinc-400 mb-3">Scores</dt>
-                <div class="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-700">
+                <div class="overflow-x-auto rounded-lg border border-zinc-200 dark:border-zinc-700">
                     <table class="min-w-full divide-y divide-zinc-200 text-sm dark:divide-zinc-700">
                         <thead class="bg-zinc-50 text-xs uppercase tracking-wide text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400">
                             <tr>
