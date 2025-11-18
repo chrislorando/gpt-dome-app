@@ -24,12 +24,7 @@ class Form extends Component
     {
         $this->validate();
 
-        // Use the UploadedFile store helper so Livewire's temporary file is handled correctly.
-        // This delegates moving the temp upload to the filesystem implementation.
         $path = $this->file->store('documents', 's3');
-
-        // Get a public URL for the stored file. If you need private files, consider
-        // generating a temporary/signed URL instead.
         $url = Storage::disk('s3')->url($path);
 
         $document = Document::create([

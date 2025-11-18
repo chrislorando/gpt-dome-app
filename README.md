@@ -35,6 +35,13 @@ This project serves both as a learning medium to deepen my understanding of mode
    ```
    Configure the following in `.env`:
    ```
+   AWS_ACCESS_KEY_ID=minio
+   AWS_SECRET_ACCESS_KEY=xxxxxx
+   AWS_DEFAULT_REGION=us-east-1
+   AWS_BUCKET=bucket
+   AWS_ENDPOINT=https://s3.xxxx.xxx
+   AWS_USE_PATH_STYLE_ENDPOINT=true
+
    OPENAI_API_KEY=your_openai_api_key
    OPENAI_ORGANIZATION=your_openai_org
    ```
@@ -83,6 +90,11 @@ This project serves both as a learning medium to deepen my understanding of mode
 - Node.js & npm
 - MySQL or compatible database (SQLite by default)
 - OpenAI API key
+- Minio
+
+## Notes
+
+The OpenAI file_url API can only access files from public (internet) URLs, not from localhost or a local network. Ensure the files you want OpenAI to process are hosted on public storage like S3, a CDN, or a globally accessible server.
 
 ## License
 
