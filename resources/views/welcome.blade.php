@@ -54,7 +54,7 @@
             </div>
         </section>
 
-        <!-- Features -->
+        <!-- Info -->
         <section id="features" class="container mx-auto px-8 mt-4">
             <div class="grid md:grid-cols-3 gap-6">
                 <div class="rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900/40 p-8">
@@ -84,7 +84,7 @@
                         <span class="inline-block size-3 rounded-full bg-neutral-200 dark:bg-zinc-800"></span>
                         <span class="inline-block size-3 rounded-full bg-neutral-200 dark:bg-zinc-800"></span>
                     </div>
-                    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
+                    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                         <figure class="rounded-md border border-zinc-200 dark:border-zinc-700 overflow-hidden bg-zinc-950/5 dark:bg-zinc-50/5">
                             <img src="{{ asset('screenshot1.png') }}" alt="Document Verifier interface preview" class="w-full object-contain" />
                             <figcaption class="px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400">
