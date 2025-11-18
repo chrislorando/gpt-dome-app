@@ -23,11 +23,27 @@
                 {{-- <flux:error name="job_offer" /> --}}
             </flux:field>
 
-            <flux:field>
-                <flux:label>PDF File</flux:label>
-                <flux:input type="file" wire:model="file" accept="application/pdf" />
-                <flux:error name="file" />
-            </flux:field>
+            <div
+                x-data="{ uploading: false, progress: 0 }"
+                x-on:livewire-upload-start="uploading = true"
+                x-on:livewire-upload-finish="uploading = false"
+                x-on:livewire-upload-cancel="uploading = false"
+                x-on:livewire-upload-error="uploading = false"
+                x-on:livewire-upload-progress="progress = $event.detail.progress"
+            >
+                <flux:field>
+                    <flux:label>PDF File</flux:label>
+                    <flux:input type="file" wire:model="file" accept="application/pdf" class="max-w-full truncate" />
+                    <flux:error name="file" />
+                </flux:field>
+
+                <div x-show="uploading" class="flex items-center gap-2 mt-2">
+                    <progress max="100" x-bind:value="progress" class="w-full h-2"></progress>
+                    <flux:button type="button" variant="danger" wire:click="$cancelUpload('file')" size="sm">
+                        <flux:icon name="trash" class="w-4 h-4" />
+                    </flux:button>
+                </div>
+            </div>
         
             <div class="flex items-center gap-2">
                 <flux:spacer />
