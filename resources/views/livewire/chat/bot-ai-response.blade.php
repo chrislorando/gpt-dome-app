@@ -1,5 +1,5 @@
 <article id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 w-full min-h-28">
-    <div class="w-full max-w-7xl mx-auto px-0 md:px-32">
+    <div class="w-full max-w-7xl mx-auto px-0 pb-10 md:px-32">
         @foreach ($messages ?? collect() as $message)
             @if ($message->role === 'user')
                 {{-- User - kanan --}}

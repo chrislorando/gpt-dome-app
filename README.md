@@ -92,6 +92,26 @@ This project serves both as a learning medium to deepen my understanding of mode
 - OpenAI API key
 - Minio
 
+## Optional: Fetch OpenAI Models
+
+If you want to use additional OpenAI models beyond the defaults, you can fetch and add them to the `models` table by running:
+
+```
+php artisan app:fetch-open-ai-models
+```
+
+To force update existing models, add the `--force` option:
+
+```
+php artisan app:fetch-open-ai-models --force
+```
+
+This command will fetch all available models from OpenAI and save them to the database. By default, newly fetched models will have the `inactive` status.
+
+You can activate any model you want manually via the admin panel or by updating the status in the database.
+
+This feature is completely optional and only needed if you want to use other OpenAI models in your application.
+
 ## Notes
 
 The OpenAI file_url API can only access files from public (internet) URLs, not from localhost or a local network. Ensure the files you want OpenAI to process are hosted on public storage like S3, a CDN, or a globally accessible server.

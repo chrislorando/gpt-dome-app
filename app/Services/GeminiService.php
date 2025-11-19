@@ -50,6 +50,12 @@ class GeminiService implements AiServiceInterface
         return $assistantMessage;
     }
 
+    public function createChatSummary(string $content)
+    {
+        // TODO: Implement Gemini chat summary logic
+        throw new \Exception('Not implemented');
+    }
+
     public function createDocumentResponse(string $document, ?string $instruction = null, ?string $model = null)
     {
         // TODO: Implement Gemini document response logic

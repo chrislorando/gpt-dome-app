@@ -19,6 +19,110 @@ class OpenAiService implements AiServiceInterface
     public function sendMessageWithStream(string $conversationId, string $content, callable $onChunk, ?string $model = null)
     {
         $model = $model ?? 'gpt-4o-mini';
+        $conversation = Conversation::findOrFail($conversationId);
+
+        // Get user personalization (only active ones)
+        $personalization = $conversation->user->personalization()->where('status', 'active')->first();
+
+        // Get all messages for context
+        $messages = $conversation->items()
+            ->orderBy('created_at')
+            ->get()
+            ->map(fn (ConversationItem $message) => [
+                'role' => $message->role,
+                'content' => $message->content,
+            ])
+            ->toArray();
+
+        // Create system prompt with personalization
+        $systemPrompt = [
+            'role' => 'system',
+            'content' => <<<SYS
+                You are an AI assistant inside a Demolite app.
+                User profile:
+                - Nickname: {$personalization?->nickname}
+                - Occupation: {$personalization?->occupation}
+                - About: {$personalization?->about}
+                
+                Behavior Guidelines:
+                - Communication tone: {$personalization?->tone}
+                - Obey the following behavioral instructions at all times: {$personalization?->instructions}
+                SYS
+        ];
+
+        // Save assistant message
+        $chatService = app(ChatService::class);
+        $responseId = null; // Initialize responseId
+        $assistantMessage = $chatService->createAssistantMessage($conversationId, '', $model, $responseId);
+
+        // Set status to in_progress before streaming
+        $assistantMessage->update(['status' => ResponseStatus::InProgress]);
+
+        try {
+            Log::info('Starting OpenAI streaming', ['messages_count' => count($messages)]);
+            // Call OpenAI API with streaming using createStreamed()
+            $stream = OpenAI::chat()->createStreamed([
+                'model' => $model,
+                'messages' => array_merge([$systemPrompt], $messages ?? $content),
+                'stream_options' => [
+                    'include_usage' => true,
+                ],
+            ]);
+
+            $assistantContent = '';
+            $chunkCount = 0;
+            $finalUsage = null;
+
+            foreach ($stream as $response) {
+                if ($response->usage !== null) {
+                    $finalUsage = $response->usage;
+                }
+
+                if ($responseId === null && isset($response->id)) {
+                    $responseId = $response->id;
+                }
+                $chunk = $response->choices[0]->delta->content ?? '';
+                if ($chunk) {
+                    $assistantContent .= $chunk;
+                    $chunkCount++;
+                    // Log::info("Chunk {$chunkCount}: " . substr($chunk, 0, 50) . '...');
+                    $onChunk($chunk);
+                }
+            }
+
+            Log::info("Streaming completed with {$chunkCount} chunks, total content length: ".strlen($assistantContent));
+
+            // Update status to completed and set content and response_id
+            $assistantMessage->update(['status' => ResponseStatus::Completed, 'content' => $assistantContent, 'response_id' => $responseId, 'total_token' => $finalUsage?->totalTokens ?? 0]);
+        } catch (Throwable $e) {
+            // Update status to failed on error
+            $assistantMessage->update(['status' => ResponseStatus::Failed]);
+
+            Log::info($messages);
+
+            $errorMessage = 'Failed to get response from OpenAI: '.$e->getMessage();
+
+            if (str_contains($e->getMessage(), 'API key') || str_contains($e->getMessage(), 'api_key')) {
+                $errorMessage = 'OpenAI API key is not configured. Please add your API key to the .env file.';
+            } elseif (str_contains($e->getMessage(), 'quota') || str_contains($e->getMessage(), 'exceeded')) {
+                $errorMessage = 'OpenAI quota exceeded. Please check your OpenAI account or subscription.';
+            } elseif (str_contains($e->getMessage(), 'authentication') || str_contains($e->getMessage(), '401')) {
+                $errorMessage = 'OpenAI authentication failed. Please verify your API key is valid.';
+            } elseif (str_contains($e->getMessage(), 'rate limit') || str_contains($e->getMessage(), '429')) {
+                $errorMessage = 'OpenAI rate limit reached. Please try again later.';
+            } elseif (str_contains($e->getMessage(), 'model') || str_contains($e->getMessage(), '404')) {
+                $errorMessage = 'OpenAI model not found or not available.';
+            }
+
+            throw new Exception($errorMessage);
+        }
+
+        return $assistantMessage;
+    }
+
+    public function sendMessageWithResponseStream(string $conversationId, callable $onChunk, ?string $model = null)
+    {
+        $model = $model ?? 'gpt-4o-mini';
         $personalization = $this->chatService->getPersonalizationForConversation($conversationId);
         $messages = $this->chatService->getConversationMessages($conversationId);
 
@@ -42,11 +146,7 @@ class OpenAiService implements AiServiceInterface
         $assistantMessage->update(['status' => ResponseStatus::InProgress]);
 
         try {
-            Log::info('Starting OpenAI streaming', ['messages_count' => count($messages)]);
-            // Use Responses Resource for streaming
-            // Flatten system prompt and messages to a single string for input
             $inputString = $systemPrompt['content'] . "\n\n" . collect($messages)->map(fn($m) => $m['role'] . ': ' . $m['content'])->implode("\n");
-            Log::debug('OpenAI inputString', ['input' => $inputString]);
             $stream = OpenAI::responses()->createStreamed([
                 'model' => $model,
                 'input' => $inputString,
@@ -62,7 +162,7 @@ class OpenAiService implements AiServiceInterface
             foreach ($stream as $response) {
                 $event = $response->event ?? null;
                 $payload = (array) $response->toArray();
-                Log::debug('OpenAI streamed event', ['event' => $event, 'payload' => $payload]);
+                // Log::debug('OpenAI streamed event', ['event' => $event, 'payload' => $payload]);
 
                 // Usage
                 if (isset($payload['usage'])) {

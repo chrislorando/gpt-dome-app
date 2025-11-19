@@ -85,7 +85,6 @@ Route::get('transcribe/{voiceNote}', \App\Livewire\Transcribe\Detail::class)
     ->middleware(['auth', 'verified'])
     ->name('transcribe.show');
 
-
 Route::post('voice-note/transcribe-chunk', [\App\Http\Controllers\VoiceNoteController::class, 'transcribeChunk'])
     ->middleware(['auth'])
     ->name('voice-note.transcribe-chunk');
