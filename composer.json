@@ -17,7 +17,7 @@
         "league/flysystem-aws-s3-v3": "^3.30",
         "livewire/flux": "^2.1.1",
         "livewire/volt": "^1.7.0",
-        "openai-php/laravel": "^0.18.0",
+        "openai-php/laravel": "^0.19.0",
         "spatie/laravel-markdown": "^2.7"
     },
     "require-dev": {
