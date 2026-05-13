@@ -116,9 +116,9 @@
                 <flux:sidebar.item icon="banknotes" :href="route('expenses.index')"
                     :current="request()->routeIs('expenses.index')" wire:navigate>{{ __('Expense Tracker') }}
                 </flux:sidebar.item>
-                <flux:sidebar.item icon="microphone" :href="route('transcribe.index')"
+                {{-- <flux:sidebar.item icon="microphone" :href="route('transcribe.index')"
                     :current="request()->routeIs('transcribe.index')" wire:navigate>{{ __('Transcribe') }}
-                </flux:sidebar.item>
+                </flux:sidebar.item> --}}
             </flux:navbar>
 
             <flux:spacer />

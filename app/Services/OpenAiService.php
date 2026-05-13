@@ -45,6 +45,35 @@ class OpenAiService implements AiServiceInterface
                 $systemPrompt
             ], $messages);
             $payload = [
+                //  "prompt" => [
+                //     "id" => "pmpt_69026f7b8f288196a5e77abcb679ef990d7724d104e55cb6",
+                //     "version" => "1"
+                // ],
+                // "tools" => [
+                //     [
+                //         'type' => 'mcp',
+                //         'allowed_tools' => [
+                //             'list-projects',
+                //             'create-project',
+                //             'update-project',
+                //             'delete-project',
+                //             'search-projects',
+                //             'list-tasks',
+                //             'create-task',
+                //             'update-task',
+                //             'complete-task',
+                //             'delete-task',
+                //             'search-tasks'
+                //         ],
+                //         'headers' => [
+                //             'Authorization' => 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIwMTlhM2E4OS1kMTg5LTczZDEtOTEzNi01ODkxMWVlMDMzMjciLCJqdGkiOiJiNDA1NTlkNzkwMmJmZGNlMDU0ZDhhZDFmYjYzODUzMmJjZmQ3YzhhODc5N2U1NzM2ZTNjNTZkOTBmZGNkNTEzNGNiNmFhNDEwMTFhMWM0NyIsImlhdCI6MTc2NDE3Mzc0OS4wNTk1MTksIm5iZiI6MTc2NDE3Mzc0OS4wNTk1MjMsImV4cCI6MTc5NTcwOTc0OC45NDQ1Mywic3ViIjoiOTgxZWMxNzgtZGRlZC00YzQyLTg3MDgtYmRmYTI1MzZmOTNkIiwic2NvcGVzIjpbXX0.UuaTfYVYIOMHPQwULWNN9DMEp1SVi1eIN3ik8bA4d4Mx-VKX_c99jLbIs-VeKdqCBguK0Ek9ysBmGzdthtNACJJVPyP3rrdKbOMUWNBRWfkF-DalIyHfoJf90CCjlB1abHJ--gwrJeHAvXLo0b0JycZDCquZE4FLvz78xxAGyHPtyXg1oKbPMdjnktGUPu8US3xouXtj3oLVL5PxkwiCFuK7KfP-hRZNde9X4SoObunyqE-4CCtNUSCPxBEfxkjgdjgt5lfL2GBkS1WxDfT0sP3ir1Wsm7F12h0jF80yeTbUAYmlAm_FjRIFBNDS54Ade_XWKgAyEpmjys0eFkNZMmIqiRflqPDqXkxV_LoREDfxO3ehEbdxPtamNUkfAKPLQVXxANNNhxP8YhYI7KDG2vG_H8drxp2vcXZ41dh0PL-HwcWz4Xk53O-F2xbjehp4bmhYdEO5gyDj7JtB-KPlUsZKGPTnSWiRKmXe-z68WRYbsvPonovJYIRZTmjvedHrSF4AfdWhAD2-KpS_DUO0HNDS_cZIJLCVkNGF01x5eh42dkWaGCHL2DMh0ZhjZ4cVBWBG5T4PCa2XPRBPA_IIEDAWRBpOxsAJ9p6n6Hy4gQYn5w1E3PlRElVmnNkS0bBTBAAB3db8JAGpZ69oBvnYv_yVCcglxoachn8UiocTdKE'
+                //         ],
+                //         'require_approval' => 'never',
+                //         'server_description' => null,
+                //         'server_label' => 'notedpak_mcp_server',
+                //         'server_url' => 'https://notedpak.demolite.my.id/mcp/todo'
+                //     ]
+                // ],
                 'model' => $model,
                 'input' => $inputMessages,
                 'stream' => true,
