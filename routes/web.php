@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FonnteController;
 use App\Livewire\Chat\SharedConversation as SharedConversationComponent;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
@@ -9,6 +10,8 @@ use OpenAI\Laravel\Facades\OpenAI;
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+Route::post('fonnte/webhook', [FonnteController::class, 'webhook'])->name('fonnte.webhook');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
@@ -42,7 +45,7 @@ Route::middleware(['auth'])->group(function () {
         ->middleware(
             when(
                 Features::canManageTwoFactorAuthentication()
-                    && Features::optionEnabled(Features::twoFactorAuthentication(), 'confirmPassword'),
+                && Features::optionEnabled(Features::twoFactorAuthentication(), 'confirmPassword'),
                 ['password.confirm'],
                 [],
             ),
