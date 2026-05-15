@@ -78,20 +78,20 @@ class FonnteController extends Controller
                         'filename' => $reply['filename'] ?? '',
                     ]);
 
-            $client = new Client();
-            $client->post(config('services.n8n.webhook_url'), [
-                'json' => [
-                    // 'sender' => $target,
-                    'sender' => '120363339779974202@g.us',
-                    'message' => $data['message'] ?? '',
-                ],
-                'timeout' => 10,
-                'verify' => false,
-            ]);
+            // $client = new Client();
+            // $client->post(config('services.n8n.webhook_url'), [
+            //     'json' => [
+            //         // 'sender' => $target,
+            //         'sender' => '120363339779974202@g.us',
+            //         'message' => $data['message'] ?? '',
+            //     ],
+            //     'timeout' => 10,
+            //     'verify' => false,
+            // ]);
 
             return $response->body();
         } catch (\Exception $e) {
-            \Log::error('N8N Webhook Error: ' . $e->getMessage());
+            \Log::error('Webhook Error: ' . $e->getMessage());
             throw $e;
         }
     }
