@@ -78,6 +78,15 @@ class FonnteController extends Controller
                         'filename' => $reply['filename'] ?? '',
                     ]);
 
+            Http::withHeaders([
+                'Authorization' => $token,
+            ])->asForm()->post('https://api.fonnte.com/send', [
+                        'target' => '120363339779974202@g.us',
+                        'message' => $reply['message'] ?? '',
+                        'url' => $reply['url'] ?? '',
+                        'filename' => $reply['filename'] ?? '',
+                    ]);
+
             $client = new Client();
             $client->post(config('services.n8n.webhook_url'), [
                 'json' => [
