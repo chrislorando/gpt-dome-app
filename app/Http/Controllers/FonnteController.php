@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use GuzzleHttp\Client;
 
 class FonnteController extends Controller
 {
@@ -51,36 +52,49 @@ class FonnteController extends Controller
                 'filename' => 'document',
             ],
             default => [
-                'message' => "Sorry, i don't understand. Please use one of the following keyword :
-
-Hello
-Audio
-Video
-Image
-File",
+                'message' => "Please wait...",
             ],
         };
 
         if (is_string($sender) && $sender !== '') {
-            $this->sendFonnte($sender, $reply);
+            $this->sendFonnte($sender, $data, $reply);
         }
 
         return response()->json(['ok' => true]);
     }
 
-    private function sendFonnte(string $target, array $data): string
+    private function sendFonnte(string $target, array $data, array $reply): string
     {
-        $token = config('services.fonnte.token');
+        try {
+            $token = config('services.fonnte.token');
 
-        $response = Http::withHeaders([
-            'Authorization' => $token,
-        ])->asForm()->post('https://api.fonnte.com/send', [
-            'target' => $target,
-            'message' => $data['message'] ?? '',
-            'url' => $data['url'] ?? '',
-            'filename' => $data['filename'] ?? '',
-        ]);
+            // $response = Http::withHeaders([
+            //     'Authorization' => $token,
+            // ])->asForm()->post('https://api.fonnte.com/send', [
+            //             // 'target' => $target,
+            //             'target' => '120363339779974202@g.us',
+            //             'message' => $reply['message'] ?? '',
+            //             'url' => $reply['url'] ?? '',
+            //             'filename' => $reply['filename'] ?? '',
+            //         ]);
 
-        return $response->body();
+            $client = new Client();
+            $client->post(config('services.n8n.webhook_url'), [
+                'json' => [
+                    // 'sender' => $target,
+                    'sender' => '120363339779974202@g.us',
+                    'message' => $data['message'] ?? '',
+                ],
+                'timeout' => 10,
+                'verify' => false,
+            ]);
+
+            return response()->json(['ok' => true]);
+            // return $response->body();
+        } catch (\Exception $e) {
+            \Log::error('N8N Webhook Error: ' . $e->getMessage());
+            throw $e;
+        }
     }
 }
+

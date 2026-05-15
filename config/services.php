@@ -39,4 +39,8 @@ return [
         'token' => env('FONNTE_TOKEN'),
     ],
 
+    'n8n' => [
+        'webhook_url' => env('N8N_WEBHOOK_URL'),
+    ],
+
 ];
