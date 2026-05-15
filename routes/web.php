@@ -11,7 +11,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::post('fonnte/webhook', [FonnteController::class, 'webhook'])->name('fonnte.webhook');
+Route::match(['get', 'post'], 'fonnte/webhook', [FonnteController::class, 'webhook'])->name('fonnte.webhook');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
