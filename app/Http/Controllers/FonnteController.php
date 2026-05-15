@@ -52,7 +52,7 @@ class FonnteController extends Controller
                 'filename' => 'document',
             ],
             default => [
-                'message' => "Please wait...",
+                'message' => "Mohon ditunggu...",
             ],
         };
 
@@ -71,23 +71,23 @@ class FonnteController extends Controller
             $response = Http::withHeaders([
                 'Authorization' => $token,
             ])->asForm()->post('https://api.fonnte.com/send', [
-                        // 'target' => $target,
-                        'target' => '120363339779974202@g.us',
+                        'target' => $target,
+                        // 'target' => '120363339779974202@g.us',
                         'message' => $reply['message'] ?? '',
                         'url' => $reply['url'] ?? '',
                         'filename' => $reply['filename'] ?? '',
                     ]);
 
-            // $client = new Client();
-            // $client->post(config('services.n8n.webhook_url'), [
-            //     'json' => [
-            //         // 'sender' => $target,
-            //         'sender' => '120363339779974202@g.us',
-            //         'message' => $data['message'] ?? '',
-            //     ],
-            //     'timeout' => 10,
-            //     'verify' => false,
-            // ]);
+            $client = new Client();
+            $client->post(config('services.n8n.webhook_url'), [
+                'json' => [
+                    'sender' => $target,
+                    // 'sender' => '120363339779974202@g.us',
+                    'message' => $data['message'] ?? '',
+                ],
+                'timeout' => 10,
+                'verify' => false,
+            ]);
 
             return $response->body();
         } catch (\Exception $e) {
